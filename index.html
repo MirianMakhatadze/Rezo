@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Rezo</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/keen-slider@6.8.5/keen-slider.min.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <link rel="stylesheet" href="css/archyedt-bold.min.css">
+    <link rel="stylesheet" href="css/reset.css"/>
+    <link rel="stylesheet" href="css/font.css">
+    <link rel="stylesheet" href="css/style.css"/>
+  </head>
+
+  <body>
+    <header class="header">
+      <div class="logo-div"><img class="logo-img" src="images/logo.png" alt="Logo"></div>
+          <div class="search-div">
+              <input class="search" placeholder="SEARCH" type="text" id="fname" name="fname">
+          </div>
+      <div class="navigation-div">
+        <a class="header-text" href="#">ჩვენს შესახებ</a>
+        <a class="header-text" href="#">სერვისები</a>
+        <a class="header-text" href="#">კონტაქტი</a>
+      </div>
+    </header>
+    <div id="my-keen-slider" class="keen-slider" style="max-height: 919px; height: 100%;">
+      <div class="keen-slider__slide number-slide1"><a class="slide-text" href=""></a></div>
+      <div class="keen-slider__slide number-slide2"><a class="slide-text" href=""></a></div>
+      <div class="keen-slider__slide number-slide3"><a class="slide-text" href=""></a></div>
+      <div class="keen-slider__slide number-slide4"><a class="slide-text" href=""></a></div>
+      <div class="keen-slider__slide number-slide5"> <div class="footer-wrapper">
+        <h2 class="footer-headline">F O L L O W &nbsp;&nbsp;&nbsp; N A P E R T S K A L I</h2>
+        <div class="footer-icon-wrapper">
+          <a href="https://www.w3schools.com/html/default.asp"><i class="fa-brands fa-instagram"></i></a>
+          <a href=""><i class="fa-brands fa-facebook"></i></a>
+          <a href=""><i class="fa-brands fa-youtube"></i></a>
+          <a href=""><i class="fa-brands fa-tiktok"></i></a>
+    </div></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/keen-slider@6.8.5/keen-slider.min.js"></script>
+    <script>
+      function WheelControls(slider) {
+        var touchTimeout
+        var position
+        var wheelActive
+
+        function dispatch(e, name) {
+          position.x -= e.deltaX
+          position.y -= e.deltaY
+          slider.container.dispatchEvent(
+            new CustomEvent(name, {
+              detail: {
+                x: position.x,
+                y: position.y,
+              },
+            })
+          )
+        }
+
+        function wheelStart(e) {
+          position = {
+            x: e.pageX,
+            y: e.pageY,
+          }
+          dispatch(e, "ksDragStart")
+        }
+
+        function wheel(e) {
+          dispatch(e, "ksDrag")
+        }
+
+        function wheelEnd(e) {
+          dispatch(e, "ksDragEnd")
+        }
+
+        function eventWheel(e) {
+          e.preventDefault()
+          if (!wheelActive) {
+            wheelStart(e)
+            wheelActive = true
+          }
+          wheel(e)
+          clearTimeout(touchTimeout)
+          touchTimeout = setTimeout(() => {
+            wheelActive = false
+            wheelEnd(e)
+          }, 50)
+        }
+
+        slider.on("created", () => {
+          slider.container.addEventListener("wheel", eventWheel, {
+            passive: false,
+          })
+        })
+      }
+
+      var slider = new KeenSlider(
+        "#my-keen-slider",
+        {
+          loop: false,
+          rubberband: false,
+          vertical: true,
+        },
+        [WheelControls]
+      )
+    </script>
+  </body>
+</html>
